@@ -1,4 +1,5 @@
-# hello-world
+# Deep Learning notebook
 first-try
 希望能够找到自己喜欢的方向并在这个方向上不断努力
 2020.02.12.当日新冠病毒2015例
+2020.07.31 七月的最后一天，雷暴转晴
