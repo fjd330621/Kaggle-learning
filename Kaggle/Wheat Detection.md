@@ -9,7 +9,10 @@ Kaggle一周能够免费提供30小时的算力时间，经过初略的估算（
 Global Wheat Detection  
 =====================
 
-_Can you help identify wheat heads using image analysis?_
+_Can you help identify wheat heads using image analysis?_  
+20200806
+比赛已完，排名一直在1400--1500之间徘徊，不得不感叹，太难了，要学的太多了。一些直接的思考已经写在了https://www.kaggle.com/fengjiedong/begginner-thought 当中。  
+后面希望能够完善这一串代码吧！！！！！！！！！！！！
 
 # 一、代码整体架构  
 
@@ -19,7 +22,8 @@ _Can you help identify wheat heads using image analysis?_
 3.结果模块较为简单，将Test数据导入到训练好的模型中，得到最终的结果并按照比赛的要求生成特定的文件，一般都是csv格式。
 # 二、具体代码
 
-### Dataload*
+### *Dataload*  
+
 
 数据载入功能，在深度学习中，数据载入往往分为两个部分：训练集验证集、测试集。其中，前一部分需要载入两部分内容，包括数据本身和数据标签；而后一部分则只需要载入数据本身即可。为了便于训练测试等操作的清晰明了，Dataset类往往也根据上述要求分成两个部分。  
 
@@ -94,7 +98,7 @@ class WheatDataset(Dataset):
     def __len__(self) -> int:
         return self.image_ids.shape[0]
         
- ### Pseudo Label*
+ ### *Pseudo Label*
 
 初次接触伪标签这一概念，目前并不能从原理上很好的理解之一方法，但是在今天FasterRCNN的实践当中，PL确实能够在一定程度上提升LB的成绩。
 
@@ -110,7 +114,7 @@ class WheatDataset(Dataset):
 
   不过，目前我并不能很好的从原理上理解使用这一方法及其效果的原因。
 
-### *Augmentation*  
+### *Augmentation* 
 
 调用了Kaggle一个notebook中的图像增强方式，目前只是单纯的调用，并没有从源代码处理解其方法和原理，希望后续有时间来细读这一串code。
 
@@ -121,3 +125,5 @@ class WheatDataset(Dataset):
 * 构建全新的loader，将上一步得到的新的图像作为新的数据集导入   
 
 遇到问题的原因：在利用Pytorch进行深度学习的操作时，常常遇到的问题便是格式的转化，模型需要tensor格式数据，而我们在操作的时候往往使用的是numpy下array格式的数据，对于这一部分的理解还不是非常的深刻，转化是需要注意的点也没有非常的清楚，需要后续构建清晰的理解。
+最后还是通过更改Loader进行了数据增强，主要使用了Mosaic，当然这不是我们常说的马赛克，而是对已有数据集图像进行分割和拼接，以此来获得更多的数据集进行训练。
+另外，https://albumentations.ai/docs/ 库也可以对图像进行从初步的图像处理
